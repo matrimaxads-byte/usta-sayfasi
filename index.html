@@ -6,181 +6,94 @@
   <title>Ustalarımız</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
- :root{
-  /* Genel */
-  --bg:#f5f7fb;              /* sayfa arka planı */
-  --card:#ffffff;            /* kartlar */
-  --text:#0f172a;            /* ana yazılar (çok koyu) */
-  --muted:#475569;           /* ikincil yazılar */
-  --line:rgba(15,23,42,.08); /* borderlar */
-
-  /* Aksiyon renkleri */
-  --btn:#5066e1;             /* primary buton */
-  --btn2:#e9ecfb;            /* secondary buton bg */
-  --ok:#16a34a;
-
-  /* UI */
-  --radius:16px;
-  --shadow:0 8px 24px rgba(15,23,42,.08);
-
-  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-}
-  body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-}
-    .wrap{ max-width:1100px; margin:0 auto; padding:0px 16px 40px; }
-    .hero{ display:flex; gap:18px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; }
-    h1{ font-size:28px; margin:0 0 6px; letter-spacing:-.02em; }
-    .sub{ color:var(--muted); margin:0; line-height:1.45; max-width:68ch; }
-
- /* PANEL (üst sabit, liste scroll) */
- .panel{
-  margin-top:16px;
-  background:#f1f4f9; /* sayfa bg'den 1 tık koyu */
-  border:1px solid rgba(15,23,42,.06);
-  border-radius:20px;
-  box-shadow:0 4px 12px rgba(15,23,42,.04);
-
-  display:flex;
-  flex-direction:column;
-  height:calc(100dvh - 40px); /* ekran yüksekliğine göre panel */
-}
-
-    .controls{
-      flex:0 0 auto;
-      padding:16px;
-      display:grid;
-      grid-template-columns: 1fr 1fr 1.6fr;
-      gap:10px;
-      border-bottom:1px solid var(--line);
-      background:#f1f4f9;
-      border-top-left-radius:20px;
-      border-top-right-radius:20px;
+    :root{
+      --bg:#ffffff; --card:#ffffff; --text:#0a2540; --muted:#5b6b7a;
+      --line:#e7e5ee; --btn:#5009D9; --btn2:#efeafb;
+      --radius:18px; --shadow:0 10px 30px -22px rgba(10,37,64,.4);
+      font-family:"Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     }
-    @media (max-width: 900px){ .controls{ grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 520px){ .controls{ grid-template-columns: 1fr; } }
+    *{ box-sizing:border-box; }
+    body{ margin:0; background:#ffffff; color:var(--text); }
+    .wrap{ max-width:1280px; margin:0 auto; padding:0 16px 40px; }
+    h1{ font-size:28px; margin:0 0 6px; letter-spacing:-.02em; color:#0a2540; font-weight:800; }
+    .sub{ color:#46586a; margin:0; line-height:1.45; max-width:68ch; }
 
+    .panel{
+      margin-top:16px; background:#f5f5f5;
+      border:1px solid var(--line); border-radius:20px;
+      display:flex; flex-direction:column;
+    }
+    .controls{
+      flex:0 0 auto; padding:18px; display:grid;
+      grid-template-columns:1fr 1fr 1.6fr; gap:12px;
+      border-bottom:1px solid var(--line); background:#f5f5f5;
+      border-top-left-radius:20px; border-top-right-radius:20px;
+    }
+    @media (max-width:900px){ .controls{ grid-template-columns:1fr 1fr; } }
+    @media (max-width:520px){ .controls{ grid-template-columns:1fr; } }
     .field{ display:flex; flex-direction:column; gap:6px; }
-    label{ font-size:12px; color:var(--muted); }
-    select,input{ background:#ffffff; color:var(--text);
-                  border:1px solid var(--line); border-radius:12px;
-                  padding:10px 12px; outline:none; }
-    input::placeholder{ color:rgba(159,176,208,.75); }
+    label{ font-size:13px; font-weight:700; color:var(--muted); }
+    select, input{
+      background:#fff; color:var(--text); font-family:"Nunito"; font-size:15px; font-weight:600;
+      border:1px solid #d9dde6; border-radius:12px; padding:12px 14px; outline:none;
+    }
+    input{ font-weight:500; }
+    input::placeholder{ color:#9aa7b5; font-weight:500; }
+    select:focus, input:focus{ border-color:#5009D9; box-shadow:0 0 0 3px rgba(80,9,217,.12); }
 
     .bar{
-      flex:0 0 auto;
-      display:flex; gap:10px; align-items:center; padding:12px 16px; flex-wrap:wrap;
-      border-bottom:1px solid var(--line);
-      background:#f1f4f9;
+      flex:0 0 auto; display:flex; gap:10px; align-items:center;
+      padding:14px 18px; flex-wrap:wrap; border-bottom:1px solid var(--line); background:#f5f5f5;
     }
-
-    .chip{ font-size:12px; color:var(--muted); border:1px solid var(--line);
-           padding:7px 10px; border-radius:999px; display:flex; gap:8px; align-items:center; background:#fff; }
-    .chip b{ color:var(--text); font-weight:600; }
-    .btn{ cursor:pointer; border:1px solid transparent; border-radius:12px; padding:10px 12px;
-          background:var(--btn); color:white; font-weight:650; letter-spacing:.01em; }
-    .btn.secondary{ background:var(--btn2); border-color:var(--line); color:var(--text); }
-    .btn:active{ transform: translateY(1px); }
+    .chip{
+      font-size:14px; color:var(--muted); border:1px solid var(--line);
+      padding:10px 16px; border-radius:11px; display:flex; gap:8px; align-items:center; background:#fff; font-weight:600;
+    }
+    .chip b{ color:var(--text); font-weight:800; }
+    .btn{
+      cursor:pointer; border:1px solid transparent; border-radius:11px; padding:11px 20px;
+      background:var(--btn); color:#fff; font-family:"Nunito"; font-weight:800; font-size:14px;
+    }
+    .btn.secondary{ background:var(--btn2); color:#5009D9; border:1px solid #e0d9f7; }
+    .btn:hover{ filter:brightness(.97); }
+    .btn:active{ transform:translateY(1px); }
     .grow{ flex:1; }
 
-    /* SADECE LİSTE KAYACAK */
     .list{
-      flex:1 1 auto;
-      overflow-y:auto;
-      -webkit-overflow-scrolling:touch;
-      padding:16px;
-
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
+      flex:1 1 auto; padding:18px;
+      display:grid; grid-template-columns:1fr 1fr; gap:16px;
     }
-    @media (max-width: 900px){ .list{ grid-template-columns: 1fr; } }
-
-    .card{ background:rgba(10,16,32,.55); border:1px solid var(--line);
-           border-radius:var(--radius); padding:14px; }
-    .top{ display:flex; gap:10px; align-items:flex-start; justify-content:space-between; }
-    .name{ font-size:15px; font-weight:750; margin:0; }
-    .meta{ color:var(--muted); font-size:13px; margin:6px 0 0; line-height:1.35; }
-    .tags{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
-    .tag{ font-size:12px; color:var(--muted); border:1px solid var(--line);
-          padding:5px 8px; border-radius:999px; }
-    .actions{ display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
-    .a{ text-decoration:none; display:inline-flex; gap:8px; align-items:center;
-        padding:9px 10px; border-radius:12px; border:1px solid var(--line);
-        background:rgba(17,26,46,.5); color:var(--text); font-weight:650; font-size:13px; }
-    .a.primary{ background:rgba(42,107,255,.18); border-color:rgba(42,107,255,.35); }
-    .a.ok{ background:rgba(25,195,125,.14); border-color:rgba(25,195,125,.35); }
-
-    /* Boş sonuç yazısı list içinde görünsün */
-    .empty{
-      grid-column: 1 / -1;
-      padding:26px 16px;
-      color:var(--muted);
-      text-align:center;
-      border:1px dashed var(--line);
-      border-radius:16px;
-      background:#fff;
-      display:none;
-    }
-
-    h1{ color:#000000; }
-    .sub{ color:#000000; }
-
-    select:focus,
-    input:focus{
-      border-color:#5066e1;
-      box-shadow:0 0 0 3px rgba(80,102,225,.12);
-    }
+    @media (max-width:900px){ .list{ grid-template-columns:1fr; } }
 
     .card{
-      background:var(--card);
-      border:1px solid var(--line);
-      box-shadow:var(--shadow);
+      background:#fff; border:1px solid var(--line);
+      border-radius:var(--radius); padding:22px; box-shadow:var(--shadow);
     }
-
-    .name{ color:var(--text); }
-    .meta{ color:var(--muted); }
-
-    .btn,
-    .a.primary{
-      background:#5066e1;
-      color:#ffffff;
+    .top{ display:flex; gap:10px; align-items:flex-start; justify-content:space-between; }
+    .name{ font-size:19px; font-weight:800; margin:0; color:#0a2540; }
+    .meta{ color:var(--muted); font-size:14px; margin:8px 0 0; line-height:1.5; }
+    .meta b{ color:#0a2540; }
+    .tags{ display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+    .tag{
+      font-size:13px; color:var(--muted); border:1px solid #e0e0ea;
+      padding:5px 14px; border-radius:999px; background:#fff; font-weight:700;
     }
-
-    .btn:hover,
-    .a.primary:hover{
-      background:#3f52c6;
-    }
-
-    .btn.secondary{
-      background:var(--btn2);
-      color:var(--text);
-      border:1px solid var(--line);
-    }
-
+    .actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
     .a{
-      background:#f1f3fe;
-      color:#5066e1;
-      border:1px solid rgba(80,102,225,.25);
+      text-decoration:none; display:inline-flex; gap:8px; align-items:center;
+      padding:10px 22px; border-radius:11px; border:1px solid #e0d9f7;
+      background:#efeafb; color:#5009D9; font-weight:800; font-size:14px;
     }
+    .a.primary{ background:#5009D9; color:#fff; border-color:#5009D9; }
+    .a.primary:hover{ background:#3d06a8; border-color:#3d06a8; }
+    .a.ok{ background:#e9f7ee; color:#1b8a4e; border-color:rgba(27,138,78,.2); }
 
-    .a.ok{
-      background:#ecfdf5;
-      color:#166534;
-      border-color:rgba(22,163,74,.25);
+    .empty{
+      grid-column:1 / -1; padding:48px 16px; color:var(--muted);
+      text-align:center; border:1px solid var(--line); border-radius:16px; background:#fff; font-weight:600; display:none;
     }
-
-    /* Scrollbar (opsiyonel) */
-    .list::-webkit-scrollbar{ width:8px; }
-    .list::-webkit-scrollbar-thumb{
-      background:rgba(15,23,42,.18);
-      border-radius:10px;
-    }
-
   </style>
 </head>
 <body>
@@ -210,470 +123,71 @@
       </div>
 
       <div id="list" class="list"></div>
-      <!-- empty mesajını list içine taşıdık -->
       <div id="empty" class="empty">Kriterlere uygun sonuç bulunamadı.</div>
     </div>
-
   </div>
 
 <script>
-  // 1) USTA VERİLERİ — burayı kendi listenle değiştir
   const DEALERS = [
-    {
-      name: "Premium Bosch Car Servis",
-      city: "Ankara",
-      district: "Etimesgut",
-      address: "Bahçekapı Mahallesi Sanayi Bulvarı No:7C Etimesgut/Ankara",
-      phone: "+90 532 698 90 68",
-      tags: ["Usta"],
-      lat: 39.942363011408794,
-      lng: 32.71285983870799
-    },
-    {
-      name: "Subaru Home",
-      city: "Ankara",
-      district: "Etimesgut",
-      address: "Şaşmaz Sanayi Sitesi 2.Cadde 2564.Sokak No:6 Etimesgut/Ankara",
-      phone: "+90 530 583 04 20",
-      tags: ["Usta"],
-      lat: 39.93248884396858,
-      lng: 32.71730121171766
-    },
-    {
-      name: "WAS Car",
-      city: "Ankara",
-      district: "Yenimahalle",
-      address: "İvedik OSB 2286. Sokak No:66/B Yenimahalle/Ankara",
-      phone: "+90 506 461 18 55",
-      tags: ["Usta"]
-    },
-    {
-      name: "Garanti İş",
-      city: "Samsun",
-      district: "Çarşamba",
-      address: "Beylerce Mahallesi Sanayi Sitesi 8. Sokak No:22/1 Çarşamba/Samsun",
-      phone: "+90 534 786 77 57",
-      tags: ["Usta"],
-      lat: 41.20800017172391,
-      lng: 36.69710807972488
-    },
-    {
-      name: "Cebeciler Oto Servis",
-      city: "Antalya",
-      district: "Alanya",
-      address: "Fığla Mahallesi Bağcı Sokak No:3 Alanya/Antalya",
-      phone: "+90 506 343 68 83",
-      tags: ["Usta"]
-    },
-    {
-      name: "Çorumlular Otomotiv",
-      city: "Samsun",
-      district: "Canik",
-      address: "Yenimahalle Mahallesi 46. Sokak No:26 Canik/Samsun",
-      phone: "+90 507 578 40 99",
-      tags: ["Usta"]
-    },
-    {
-      name: "İnci Garaj",
-      city: "İstanbul",
-      district: "Bağcılar",
-      address: "Kemalpaşa Mahallesi 0-3 Yan Yol Cadde No:15 Bağcılar/İstanbul",
-      phone: "+90 532 587 02 00",
-      tags: ["Usta"]
-    },
-    {
-      name: "Avcı Otomotiv",
-      city: "Kocaeli",
-      district: "İzmit",
-      address: "Sanayi Mahallesi Fevzi Çakmak Cadde C Blok No:98/C-1 İzmit/Kocaeli",
-      phone: "+90 554 235 09 79",
-      tags: ["Usta"]
-    },
-    {
-      name: "Vizyon ARC Otomotiv Sanayi LTD. ŞTİ.",
-      city: "Bolu",
-      district: "Merkez",
-      address: "Tabaklar Mahallesi Cumhuriyet Cadde No:41/1 Merkez/Bolu",
-      phone: "+90 532 169 40 04",
-      tags: ["Usta"]
-    },
-    {
-      name: "HP Motors",
-      city: "Ankara",
-      district: "Yenimahalle",
-      address: "Şaşmaz Oto Sanayi Sitesi 2531 Sokak no:17/A Etimesgut/Ankara",
-      phone: "+90 507 306 62 60",
-      tags: ["Usta"]
-    },
-    {
-      name: "HP OTO Market",
-      city: "Ankara",
-      district: "Yenimahalle",
-      address: "Şaşmaz Oto Sanayi Sitesi 2551 Cadde 2530 Sokak No:4 Etimesgut/Ankara",
-      phone: "+90 507 306 62 60",
-      tags: ["Usta"]
-    },
-    {
-      name: "Özen Renault",
-      city: "Kayseri",
-      district: "Kocasinan",
-      address: "Şeker Mahallesi 6136.Sokak No:7 Kocasinan/Kayseri",
-      phone: "+90 542 451 78 72",
-      tags: ["Usta"]
-    },
-    {
-      name: "Ayser Bosch Car",
-      city: "Ankara",
-      district: "Yenimahalle",
-      address: "Beştepe Mahallesi Yaşam Caddesi Ak Plaza No:7/B Yenimahalle/Ankara",
-      phone: "+90 532 646 72 66",
-      tags: ["Usta"]
-    },
-      {
-        name: "Teknik Oto",
-        city: "Ankara",
-        district: "Yenimahalle",
-        address: "İvedik OSB Mahallesi 1563 Caddesi 88.Bölge No:92 Yenimahalle/Ankara",
-        phone: "+90 545 660 10 33",
-        tags: ["Usta"]
-      },
-      {
-        name: "Severoğlu Oto Tamir ve Yağlama",
-        city: "Hatay",
-        district: "İskenderun",
-        address: "Muradiye Mahallesi Sanayi 319 Sokak No:7 İskenderun/Hatay",
-        phone: "+90 532 413 02 08",
-        tags: ["Usta"]
-      },
-      {
-        name: "BBD OTO",
-        city: "Mersin",
-        district: "Mezitli",
-        address: "Atatürk Mahallesi Sanayi Caddesi Alp Plaza No:54/G Mezitli/Mersin",
-        phone: "+90 532 600 64 41",
-        tags: ["Usta"]
-      },
-      {
-        name: "Dizel Performans",
-        city: "Ankara",
-        district: "Etimesgut",
-        address: "Bahçekapı Mahallesi 2685. Sokak No:11/263 Etimesgut/Ankara",
-        phone: "+90 507 761 06 38",
-        phone: "+90 542 518 90 61",
-        tags: ["Usta"]
-      },
-      {
-        name: "İmaj BMW",
-        city: "Ankara",
-        district: "Etimesgut",
-        address: "Bahçekapı Mahallesi 2518/1. Sokak No:12 Etimesgut/Ankara",
-        phone: "+90 312 278 27 35",
-        tags: ["Usta"]
-      },
-      {
-        name: "MGRemaps Konya Chip Turning Upgrade",
-        city: "Konya",
-        district: "Selçuklu",
-        address: "Fatih Mahallesi Paşabahçe Sokak No:12 Selçuklu/Konya",
-        phone: "+90 553 221 13 70",
-        tags: ["Usta"]
-      },
-      {
-        name: "Depeli Özel Servis",
-        city: "Konya",
-        district: "Selçuklu",
-        address: "Fatih Mahallesi Başlamış Sokak No:23 Selçuklu/Konya",
-        phone: "+90 546 863 82 37",
-        tags: ["Usta"]
-      },
-      {
-        name: "Asil BMW",
-        city: "Ankara",
-        district: "Etimesgut",
-        address: "Bahçekapı Mahallesi 2531. Sokak No:6/5 Etimesgut/Ankara",
-        phone: "+90 544 556 60 47",
-        tags: ["Usta"]
-      },
-      {
-        name: "Atılım Otomotiv",
-        city: "İstanbul",
-        district: "Ümraniye",
-        address: "Kadosan Sanayi Sitesi G Blok No:40 Ümraniye/İstanbul",
-        phone: "+90 533 819 05 90",
-        tags: ["Usta"]
-      },
-      {
-        name: "Def Garage",
-        city: "İstanbul",
-        district: "Maltepe",
-        address: "Büyükbakkalköy Mahallesi Anı Sokak No:8/1 Maltepe/İstanbul",
-        phone: "+90 544 828 55 55",
-        tags: ["Usta"]
-      },
-      {
-        name: "Yıldırım Auto",
-        city: "Karaman",
-        district: "Merkez",
-        address: "Hamidiye Mahallesi Yeni Sanayi Sitesi 733.Sokak No:8 Merkez/Karaman",
-        phone: "+90 546 805 86 60",
-        tags: ["Usta"]
-      },
-      {
-        name: "Ak Oto Yedek Parça Servis",
-        city: "Bursa",
-        district: "Osmangazi",
-        address: "Yeşilova Mahallesi İstanbul Caddesi No:216 Osmangazi/Bursa",
-        phone: "+90 535 304 19 37",
-        tags: ["Usta"]
-      },
-      {
-        name: "Gölbaşı Otomotiv",
-        city: "Ankara",
-        district: "Gölbaşı",
-        address: "Şafak Mahallesi Ankara Caddesi No:23/B Gölbaşı/Ankara",
-        phone: "+90 546 462 21 89",
-        tags: ["Usta"]
-      },
-      {
-        name: "Ercanlar Bosch Car",
-        city: "Ankara",
-        district: "Çankaya",
-        address: "Dikmen Caddesi No:588 Çankaya/Ankara",
-        phone: "+90 532 372 20 48",
-        tags: ["Usta"]
-      },
-      {
-        name: "Fast Car Oto",
-        city: "Ankara",
-        district: "Yenimahalle",
-        address: "Ergazi Mahallesi 1814.Sokak No:40 Yenimahalle/Ankara",
-        phone: "+90 312 278 79 10",
-        tags: ["Usta"]
-      },
-      {
-        name: "Class MER",
-        city: "Konya",
-        district: "Karatay",
-        address: "Fevzi Çakmak Mahallesi Gülistan Caddesi No:33 Karatay/KONYA",
-        phone: "+90 553 441 36 92",
-        tags: ["Usta"]
-      },
-      {
-        name: "Fizyon Usta",
-        city: "Ankara",
-        district: "Yenimahalle",
-        address: "İvedik OSB Mahallesi 1526. Sokak No:4 Yenimahalle/ANKARA",
-        phone: "+90 553 138 25 47",
-        tags: ["Usta"]
-      },
-      {
-        name: "Kaderoğlu Oto",
-        city: "Ankara",
-        district: "Yenimahalle",
-        address: "Otobüscüler Sanayi Sitesi 1.Cadde No:16/26 Yenimahalle/ANKARA",
-        phone: "+90 532 457 03 58",
-        tags: ["Usta"]
-      },
-      {
-        name: "Acura Erzurum Garage",
-        city: "Erzurum",
-        district: "Yakutiye",
-        address: "Kurtuluş Mahallesi Haydar Telhüner Sokak No:2/1 Yakutiye/ERZURUM",
-        phone: "+90 546 467 68 51",
-        tags: ["Usta"]
-      },
-      {
-        name: "Champion Moto Garage",
-        city: "Kocaeli",
-        district: "Çayırova",
-        address: "Özgürlük Mahallesi 248/2 Sokak No:11/A Çayırova/KOCAELİ",
-        phone: "+90 532 644 34 10",
-        tags: ["Usta"]
-      },
-      {
-        name: "Park Garaj",
-        city: "Ankara",
-        district: "Etimesgut",
-        address: "Bahçekapı Mahallesi 2549. Sokak No:2/E Etimesgut/ANKARA",
-        phone: "+90 535 593 94 68",
-        tags: ["Usta"]
-      },
-      {
-        name: "Koca Hafriyat",
-        city: "Kocaeli",
-        district: "Gebze",
-        address: "Fevzi Çakmak Mahallesi Üstepe Sokak No:3 Gebze/KOCAELİ",
-        phone: "+90 530 305 58 77",
-        tags: ["Usta"]
-      },
-      {
-        name: "Abudavut Group Otomotiv",
-        city: "Antalya",
-        district: "Kepez",
-        address: "Fabrikalar Mahallesi Dumlupınar Bulvarı Kaya İş Merkezi No:137C Kepez/ANTALYA",
-        phone: "+90 534 582 12 42",
-        tags: ["Usta"]
-      },
-      {
-        name: "A1 Güçlü Otomotiv",
-        city: "Ankara",
-        district: "Etimesgut",
-        address: "Bahçekapı Mahallesi 2473. Cadde No:52/A Etimesgut/ANKARA",
-        phone: "+90 505 137 16 63",
-        tags: ["Usta"]
-      },
-      {
-        name: "Teknik Otomotiv",
-        city: "Tekirdağ",
-        district: "Kapaklı",
-        address: "İnönü Mahallesi Küçük Sanayi Sitesi 1. Sokak No:1/A Kapaklı/TEKİRDAĞ",
-        phone: "+90 544 256 80 71",
-        tags: ["Usta"]
-      },
-      {
-        name: "Gelişim Oto",
-        city: "Kayseri",
-        district: "Kocasinan",
-        address: "Şeker Mahallesi 6146. Sokak No:17 Kocasinan/KAYSERİ",
-        phone: "+90 532 431 85 51",
-        tags: ["Usta"]
-      },
-      {
-        name: "Fabrika Bosch Car",
-        city: "Trabzon",
-        district: "Akçaabat",
-        address: "Yaylacık Mahallesi Düzköy Caddesi No:99/A Akçaabat/TRABZON",
-        phone: "+90 536 744 44 29",
-        tags: ["Usta"]
-      },
-      {
-        name: "Oto Pratik",
-        city: "Ankara",
-        district: "Yenimahalle",
-        address: "İvedik OSB Mahallesi 1342.Cadde No:54 Yenimahalle/ANKARA",
-        phone: "+90 543 353 49 22",
-        tags: ["Usta"]
-      },
-      {
-        name: "Ustalar Group",
-        city: "Ankara",
-        district: "Etimesgut",
-        address: "Bahçekapı Mahallesi 2477 Cadde No:14/4D Etimesgut/ANKARA",
-        phone: "+90 533 549 86 32",
-        tags: ["Usta"]
-      },
-      {
-        name: "AYM Giresun",
-        city: "Giresun",
-        district: "Merkez",
-        address: "Gedikkaya Mahallesi 6.Sokak  No:19/C Merkez/GİRESUN",
-        phone: "+90 545 221 79 93",
-        tags: ["Usta"]
-      },
-      {
-        name: "Car Servis",
-        city: "İstanbul",
-        district: "Küçükçekmece",
-        address: "Atakent Mahallesi Kırlangıç Sokak  No:14/2 Küçükçekmece/İSTANVBUL",
-        phone: "+90 545 221 79 93",
-        tags: ["Usta"]
-      },
-      {
-        name: "Güçlü Ford Servis",
-        city: "Malatya",
-        district: "Yeşilyurt",
-        address: "Çarmuzu Mahallesi Boncuk Sokak  No:14/1A Yeşilyurt/MALATYA  ",
-        phone: "+90 530 061 26 89",
-        tags: ["Usta"]
-      },
-      {
-        name: "Varol Oto Mekanik",
-        city: "İstanbul",
-        district: "Sultanbeyli",
-        address: "Hamidiye Mahallesi Eşrefbey Caddesi No:4/1 Sultanbeyli/İSTANBUL",
-        phone: "+90 539 718 33 06",
-        tags: ["Usta"]
-      },
-      {
-        name: "Varol Oto Garage",
-        city: "İstanbul",
-        district: "Sultanbeyli",
-        address: "Aksemşettin Mahallesi Eşrefbey Caddesi No:13A/1 Sultanbeyli/İSTANBUL",
-        phone: "+90 553 743 29 56",
-        tags: ["Usta"]
-      },
-      {
-        name: "Kartal Oto",
-        city: "İstanbul",
-        district: "Avcılar",
-        address: "Firüzköy Mahallesi Ali Gülmez Caddesi No:59 Avcılar/İSTANBUL",
-        phone: "+90 538 598 82 09",
-        tags: ["Usta"]
-      },
-      {
-        name: "Bes Motors",
-        city: "Ankara",
-        district: "Yenimahalles",
-        address: "Ergazi Mahallesi 1803. Cadde No:6/25 Yenimahalle/ANKARA",
-        phone: "+90 532 669 71 06",
-        tags: ["Usta"]
-      },
-      {
-        name: "Federal Motor",
-        city: "Ankara",
-        district: "Etimesgut",
-        address: "Oto Sanayi Sitesi 6.Cadde 2467.Sokak No:1/G Etimesgut/ANKARA",
-        phone: "+90 531 260 15 99",
-        tags: ["Usta"]
-      },
-      {
-        name: "Şaşmaz BMW Land Rover",
-        city: "Ankara",
-        district: "Etimesgut",
-        address: "Bahçekapı Mahallesi 2689.Cadde No:5 Etimesgut/ANKARA",
-        phone: "+90 537 014 31 04",
-        tags: ["Usta"]
-      },
-      {
-        name: "Turgaycan Seymen Oto Yedek Parça",
-        city: "Ankara",
-        district: "Yenimahalle",
-        address: "İvedik OSB Merkez Sanayi Sitesi 1349.Sokak No:4 Yenimahalle/ANKARA",
-        phone: "+90 544 554 56 06",
-        tags: ["Usta"]
-      },
-      {
-        name: "Yiğitler Volkswagen",
-        city: "Ankara",
-        district: "Yenimahalle",
-        address: "İvedik Mahallesi 1344.Sokak No:39 Yenimahalle/ANKARA",
-        phone: "+90 546 406 40 40",
-        tags: ["Usta"]
-      },
-      {
-        name: "Meray Oto Servis",
-        city: "Ankara",
-        district: "Etimesgut",
-        address: "Oto Sanayi Sitesi 3.Cadde 2529.Sokak No:24 Etimesgut/ANKARA",
-        phone: "+90 536 922 69 21",
-        tags: ["Usta"]
-      },
-      {
-        name: "Yiğit Oto",
-        city: "Ankara",
-        district: "Altındağ",
-        address: "Güneşevler Mahallesi Celal Esat Arıseven Caddesi No:13/A Altındağ/ANKARA",
-        phone: "+90 543 771 63 92",
-        tags: ["Usta"]
-      }
-
+    { name: "Premium Bosch Car Servis", city: "Ankara", district: "Etimesgut", address: "Bahçekapı Mahallesi Sanayi Bulvarı No:7C Etimesgut/Ankara", phone: "+90 532 698 90 68", tags: ["Usta"], lat: 39.942363011408794, lng: 32.71285983870799 },
+    { name: "Subaru Home", city: "Ankara", district: "Etimesgut", address: "Şaşmaz Sanayi Sitesi 2.Cadde 2564.Sokak No:6 Etimesgut/Ankara", phone: "+90 530 583 04 20", tags: ["Usta"], lat: 39.93248884396858, lng: 32.71730121171766 },
+    { name: "WAS Car", city: "Ankara", district: "Yenimahalle", address: "İvedik OSB 2286. Sokak No:66/B Yenimahalle/Ankara", phone: "+90 506 461 18 55", tags: ["Usta"] },
+    { name: "Garanti İş", city: "Samsun", district: "Çarşamba", address: "Beylerce Mahallesi Sanayi Sitesi 8. Sokak No:22/1 Çarşamba/Samsun", phone: "+90 534 786 77 57", tags: ["Usta"], lat: 41.20800017172391, lng: 36.69710807972488 },
+    { name: "Cebeciler Oto Servis", city: "Antalya", district: "Alanya", address: "Fığla Mahallesi Bağcı Sokak No:3 Alanya/Antalya", phone: "+90 506 343 68 83", tags: ["Usta"] },
+    { name: "Çorumlular Otomotiv", city: "Samsun", district: "Canik", address: "Yenimahalle Mahallesi 46. Sokak No:26 Canik/Samsun", phone: "+90 507 578 40 99", tags: ["Usta"] },
+    { name: "İnci Garaj", city: "İstanbul", district: "Bağcılar", address: "Kemalpaşa Mahallesi 0-3 Yan Yol Cadde No:15 Bağcılar/İstanbul", phone: "+90 532 587 02 00", tags: ["Usta"] },
+    { name: "Avcı Otomotiv", city: "Kocaeli", district: "İzmit", address: "Sanayi Mahallesi Fevzi Çakmak Cadde C Blok No:98/C-1 İzmit/Kocaeli", phone: "+90 554 235 09 79", tags: ["Usta"] },
+    { name: "Vizyon ARC Otomotiv Sanayi LTD. ŞTİ.", city: "Bolu", district: "Merkez", address: "Tabaklar Mahallesi Cumhuriyet Cadde No:41/1 Merkez/Bolu", phone: "+90 532 169 40 04", tags: ["Usta"] },
+    { name: "HP Motors", city: "Ankara", district: "Yenimahalle", address: "Şaşmaz Oto Sanayi Sitesi 2531 Sokak no:17/A Etimesgut/Ankara", phone: "+90 507 306 62 60", tags: ["Usta"] },
+    { name: "HP OTO Market", city: "Ankara", district: "Yenimahalle", address: "Şaşmaz Oto Sanayi Sitesi 2551 Cadde 2530 Sokak No:4 Etimesgut/Ankara", phone: "+90 507 306 62 60", tags: ["Usta"] },
+    { name: "Özen Renault", city: "Kayseri", district: "Kocasinan", address: "Şeker Mahallesi 6136.Sokak No:7 Kocasinan/Kayseri", phone: "+90 542 451 78 72", tags: ["Usta"] },
+    { name: "Ayser Bosch Car", city: "Ankara", district: "Yenimahalle", address: "Beştepe Mahallesi Yaşam Caddesi Ak Plaza No:7/B Yenimahalle/Ankara", phone: "+90 532 646 72 66", tags: ["Usta"] },
+    { name: "Teknik Oto", city: "Ankara", district: "Yenimahalle", address: "İvedik OSB Mahallesi 1563 Caddesi 88.Bölge No:92 Yenimahalle/Ankara", phone: "+90 545 660 10 33", tags: ["Usta"] },
+    { name: "Severoğlu Oto Tamir ve Yağlama", city: "Hatay", district: "İskenderun", address: "Muradiye Mahallesi Sanayi 319 Sokak No:7 İskenderun/Hatay", phone: "+90 532 413 02 08", tags: ["Usta"] },
+    { name: "BBD OTO", city: "Mersin", district: "Mezitli", address: "Atatürk Mahallesi Sanayi Caddesi Alp Plaza No:54/G Mezitli/Mersin", phone: "+90 532 600 64 41", tags: ["Usta"] },
+    { name: "Dizel Performans", city: "Ankara", district: "Etimesgut", address: "Bahçekapı Mahallesi 2685. Sokak No:11/263 Etimesgut/Ankara", phone: "+90 542 518 90 61", tags: ["Usta"] },
+    { name: "İmaj BMW", city: "Ankara", district: "Etimesgut", address: "Bahçekapı Mahallesi 2518/1. Sokak No:12 Etimesgut/Ankara", phone: "+90 312 278 27 35", tags: ["Usta"] },
+    { name: "MGRemaps Konya Chip Turning Upgrade", city: "Konya", district: "Selçuklu", address: "Fatih Mahallesi Paşabahçe Sokak No:12 Selçuklu/Konya", phone: "+90 553 221 13 70", tags: ["Usta"] },
+    { name: "Depeli Özel Servis", city: "Konya", district: "Selçuklu", address: "Fatih Mahallesi Başlamış Sokak No:23 Selçuklu/Konya", phone: "+90 546 863 82 37", tags: ["Usta"] },
+    { name: "Asil BMW", city: "Ankara", district: "Etimesgut", address: "Bahçekapı Mahallesi 2531. Sokak No:6/5 Etimesgut/Ankara", phone: "+90 544 556 60 47", tags: ["Usta"] },
+    { name: "Atılım Otomotiv", city: "İstanbul", district: "Ümraniye", address: "Kadosan Sanayi Sitesi G Blok No:40 Ümraniye/İstanbul", phone: "+90 533 819 05 90", tags: ["Usta"] },
+    { name: "Def Garage", city: "İstanbul", district: "Maltepe", address: "Büyükbakkalköy Mahallesi Anı Sokak No:8/1 Maltepe/İstanbul", phone: "+90 544 828 55 55", tags: ["Usta"] },
+    { name: "Yıldırım Auto", city: "Karaman", district: "Merkez", address: "Hamidiye Mahallesi Yeni Sanayi Sitesi 733.Sokak No:8 Merkez/Karaman", phone: "+90 546 805 86 60", tags: ["Usta"] },
+    { name: "Ak Oto Yedek Parça Servis", city: "Bursa", district: "Osmangazi", address: "Yeşilova Mahallesi İstanbul Caddesi No:216 Osmangazi/Bursa", phone: "+90 535 304 19 37", tags: ["Usta"] },
+    { name: "Gölbaşı Otomotiv", city: "Ankara", district: "Gölbaşı", address: "Şafak Mahallesi Ankara Caddesi No:23/B Gölbaşı/Ankara", phone: "+90 546 462 21 89", tags: ["Usta"] },
+    { name: "Ercanlar Bosch Car", city: "Ankara", district: "Çankaya", address: "Dikmen Caddesi No:588 Çankaya/Ankara", phone: "+90 532 372 20 48", tags: ["Usta"] },
+    { name: "Fast Car Oto", city: "Ankara", district: "Yenimahalle", address: "Ergazi Mahallesi 1814.Sokak No:40 Yenimahalle/Ankara", phone: "+90 312 278 79 10", tags: ["Usta"] },
+    { name: "Class MER", city: "Konya", district: "Karatay", address: "Fevzi Çakmak Mahallesi Gülistan Caddesi No:33 Karatay/KONYA", phone: "+90 553 441 36 92", tags: ["Usta"] },
+    { name: "Fizyon Usta", city: "Ankara", district: "Yenimahalle", address: "İvedik OSB Mahallesi 1526. Sokak No:4 Yenimahalle/ANKARA", phone: "+90 553 138 25 47", tags: ["Usta"] },
+    { name: "Kaderoğlu Oto", city: "Ankara", district: "Yenimahalle", address: "Otobüscüler Sanayi Sitesi 1.Cadde No:16/26 Yenimahalle/ANKARA", phone: "+90 532 457 03 58", tags: ["Usta"] },
+    { name: "Acura Erzurum Garage", city: "Erzurum", district: "Yakutiye", address: "Kurtuluş Mahallesi Haydar Telhüner Sokak No:2/1 Yakutiye/ERZURUM", phone: "+90 546 467 68 51", tags: ["Usta"] },
+    { name: "Champion Moto Garage", city: "Kocaeli", district: "Çayırova", address: "Özgürlük Mahallesi 248/2 Sokak No:11/A Çayırova/KOCAELİ", phone: "+90 532 644 34 10", tags: ["Usta"] },
+    { name: "Park Garaj", city: "Ankara", district: "Etimesgut", address: "Bahçekapı Mahallesi 2549. Sokak No:2/E Etimesgut/ANKARA", phone: "+90 535 593 94 68", tags: ["Usta"] },
+    { name: "Koca Hafriyat", city: "Kocaeli", district: "Gebze", address: "Fevzi Çakmak Mahallesi Üstepe Sokak No:3 Gebze/KOCAELİ", phone: "+90 530 305 58 77", tags: ["Usta"] },
+    { name: "Abudavut Group Otomotiv", city: "Antalya", district: "Kepez", address: "Fabrikalar Mahallesi Dumlupınar Bulvarı Kaya İş Merkezi No:137C Kepez/ANTALYA", phone: "+90 534 582 12 42", tags: ["Usta"] },
+    { name: "A1 Güçlü Otomotiv", city: "Ankara", district: "Etimesgut", address: "Bahçekapı Mahallesi 2473. Cadde No:52/A Etimesgut/ANKARA", phone: "+90 505 137 16 63", tags: ["Usta"] },
+    { name: "Teknik Otomotiv", city: "Tekirdağ", district: "Kapaklı", address: "İnönü Mahallesi Küçük Sanayi Sitesi 1. Sokak No:1/A Kapaklı/TEKİRDAĞ", phone: "+90 544 256 80 71", tags: ["Usta"] },
+    { name: "Gelişim Oto", city: "Kayseri", district: "Kocasinan", address: "Şeker Mahallesi 6146. Sokak No:17 Kocasinan/KAYSERİ", phone: "+90 532 431 85 51", tags: ["Usta"] },
+    { name: "Fabrika Bosch Car", city: "Trabzon", district: "Akçaabat", address: "Yaylacık Mahallesi Düzköy Caddesi No:99/A Akçaabat/TRABZON", phone: "+90 536 744 44 29", tags: ["Usta"] },
+    { name: "Oto Pratik", city: "Ankara", district: "Yenimahalle", address: "İvedik OSB Mahallesi 1342.Cadde No:54 Yenimahalle/ANKARA", phone: "+90 543 353 49 22", tags: ["Usta"] },
+    { name: "Ustalar Group", city: "Ankara", district: "Etimesgut", address: "Bahçekapı Mahallesi 2477 Cadde No:14/4D Etimesgut/ANKARA", phone: "+90 533 549 86 32", tags: ["Usta"] },
+    { name: "AYM Giresun", city: "Giresun", district: "Merkez", address: "Gedikkaya Mahallesi 6.Sokak No:19/C Merkez/GİRESUN", phone: "+90 545 221 79 93", tags: ["Usta"] },
+    { name: "Car Servis", city: "İstanbul", district: "Küçükçekmece", address: "Atakent Mahallesi Kırlangıç Sokak No:14/2 Küçükçekmece/İSTANBUL", phone: "+90 545 221 79 93", tags: ["Usta"] },
+    { name: "Güçlü Ford Servis", city: "Malatya", district: "Yeşilyurt", address: "Çarmuzu Mahallesi Boncuk Sokak No:14/1A Yeşilyurt/MALATYA", phone: "+90 530 061 26 89", tags: ["Usta"] },
+    { name: "Varol Oto Mekanik", city: "İstanbul", district: "Sultanbeyli", address: "Hamidiye Mahallesi Eşrefbey Caddesi No:4/1 Sultanbeyli/İSTANBUL", phone: "+90 539 718 33 06", tags: ["Usta"] },
+    { name: "Varol Oto Garage", city: "İstanbul", district: "Sultanbeyli", address: "Aksemşettin Mahallesi Eşrefbey Caddesi No:13A/1 Sultanbeyli/İSTANBUL", phone: "+90 553 743 29 56", tags: ["Usta"] },
+    { name: "Kartal Oto", city: "İstanbul", district: "Avcılar", address: "Firüzköy Mahallesi Ali Gülmez Caddesi No:59 Avcılar/İSTANBUL", phone: "+90 538 598 82 09", tags: ["Usta"] },
+    { name: "Bes Motors", city: "Ankara", district: "Yenimahalles", address: "Ergazi Mahallesi 1803. Cadde No:6/25 Yenimahalle/ANKARA", phone: "+90 532 669 71 06", tags: ["Usta"] },
+    { name: "Federal Motor", city: "Ankara", district: "Etimesgut", address: "Oto Sanayi Sitesi 6.Cadde 2467.Sokak No:1/G Etimesgut/ANKARA", phone: "+90 531 260 15 99", tags: ["Usta"] },
+    { name: "Şaşmaz BMW Land Rover", city: "Ankara", district: "Etimesgut", address: "Bahçekapı Mahallesi 2689.Cadde No:5 Etimesgut/ANKARA", phone: "+90 537 014 31 04", tags: ["Usta"] },
+    { name: "Turgaycan Seymen Oto Yedek Parça", city: "Ankara", district: "Yenimahalle", address: "İvedik OSB Merkez Sanayi Sitesi 1349.Sokak No:4 Yenimahalle/ANKARA", phone: "+90 544 554 56 06", tags: ["Usta"] },
+    { name: "Yiğitler Volkswagen", city: "Ankara", district: "Yenimahalle", address: "İvedik Mahallesi 1344.Sokak No:39 Yenimahalle/ANKARA", phone: "+90 546 406 40 40", tags: ["Usta"] },
+    { name: "Meray Oto Servis", city: "Ankara", district: "Etimesgut", address: "Oto Sanayi Sitesi 3.Cadde 2529.Sokak No:24 Etimesgut/ANKARA", phone: "+90 536 922 69 21", tags: ["Usta"] },
+    { name: "Yiğit Oto", city: "Ankara", district: "Altındağ", address: "Güneşevler Mahallesi Celal Esat Arıseven Caddesi No:13/A Altındağ/ANKARA", phone: "+90 543 771 63 92", tags: ["Usta"] }
   ];
 
   const $ = (id) => document.getElementById(id);
-
-  const norm = (s) => (s || "").toString().trim().toLowerCase()
-    .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-
+  const norm = (s) => (s || "").toString().trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   function unique(arr){ return [...new Set(arr)].sort((a,b)=>a.localeCompare(b,"tr")); }
 
   const citySel = $("city"), districtSel = $("district"), qInp = $("q");
@@ -683,113 +197,72 @@
     const cities = unique(DEALERS.map(d=>d.city));
     citySel.innerHTML = `<option value="">--Seçiniz--</option>` + cities.map(c=>`<option>${c}</option>`).join("");
   }
-
   function fillDistricts(){
     const city = citySel.value;
     const districts = unique(DEALERS.filter(d=>!city || d.city===city).map(d=>d.district));
     districtSel.innerHTML = `<option value="">--Seçiniz--</option>` + districts.map(c=>`<option>${c}</option>`).join("");
   }
-
   function mapsLink(d){
-    if (typeof d.lat === "number" && typeof d.lng === "number") {
-      return `https://www.google.com/maps?q=${d.lat},${d.lng}`;
-    }
+    if (typeof d.lat === "number" && typeof d.lng === "number") return `https://www.google.com/maps?q=${d.lat},${d.lng}`;
     return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(d.address)}`;
   }
-
-  function phoneLink(phone){
-    const p = (phone||"").replace(/[^\d+]/g,"");
-    return p ? `tel:${p}` : "";
-  }
-
+  function phoneLink(phone){ const p=(phone||"").replace(/[^\d+]/g,""); return p?`tel:${p}`:""; }
   function escapeHtml(str){
-    return (str||"").toString()
-      .replaceAll("&","&amp;").replaceAll("<","&lt;")
-      .replaceAll(">","&gt;").replaceAll('"',"&quot;")
-      .replaceAll("'","&#039;");
+    return (str||"").toString().replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
   }
 
-  let currentSort = "AZ"; // AZ | ZA
-
+  let currentSort = "AZ";
   function apply(){
-    const city = citySel.value;
-    const district = districtSel.value;
-    const q = norm(qInp.value);
-
+    const city = citySel.value, district = districtSel.value, q = norm(qInp.value);
     let out = DEALERS.filter(d=>{
       if (city && d.city !== city) return false;
       if (district && d.district !== district) return false;
-
       if (!q) return true;
-
       const hay = norm([d.name, d.address, d.city, d.district, (d.tags||[]).join(" ")].join(" "));
       return hay.includes(q);
     });
-
-    out.sort((a,b)=>{
-      const cmp = a.name.localeCompare(b.name,"tr");
-      return currentSort==="AZ" ? cmp : -cmp;
-    });
-
+    out.sort((a,b)=>{ const cmp=a.name.localeCompare(b.name,"tr"); return currentSort==="AZ"?cmp:-cmp; });
     render(out);
   }
-
   function render(items){
     countEl.textContent = items.length;
     listEl.innerHTML = "";
-
-    if (!items.length){
-      emptyEl.style.display = "block";
-      return;
-    }
+    if (!items.length){ emptyEl.style.display = "block"; return; }
     emptyEl.style.display = "none";
-
     listEl.innerHTML = items.map(d=>{
-      const mapUrl = mapsLink(d);
-      const tel = phoneLink(d.phone);
+      const mapUrl = mapsLink(d), tel = phoneLink(d.phone);
       const tags = (d.tags||[]).slice(0,6).map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join("");
-
       return `
         <div class="card">
-          <div class="top">
-            <div>
-              <p class="name">${escapeHtml(d.name)}</p>
-              <p class="meta">
-                <b>${escapeHtml(d.city)}</b> · ${escapeHtml(d.district)}<br/>
-                ${escapeHtml(d.address)}
-              </p>
-              ${tags ? `<div class="tags">${tags}</div>` : ``}
-            </div>
-          </div>
-
+          <div class="top"><div>
+            <p class="name">${escapeHtml(d.name)}</p>
+            <p class="meta"><b>${escapeHtml(d.city)}</b> · ${escapeHtml(d.district)}<br/>${escapeHtml(d.address)}</p>
+            ${tags ? `<div class="tags">${tags}</div>` : ``}
+          </div></div>
           <div class="actions">
             ${tel ? `<a class="a ok" href="${tel}">Ara</a>` : ``}
             <a class="a" href="${mapUrl}" target="_blank" rel="noopener">Yol Tarifi</a>
           </div>
-        </div>
-      `;
+        </div>`;
     }).join("");
   }
 
   citySel.addEventListener("change", ()=>{ fillDistricts(); apply(); });
   districtSel.addEventListener("change", apply);
   qInp.addEventListener("input", apply);
-
   $("sortAZ").addEventListener("click", ()=>{ currentSort="AZ"; apply(); });
   $("sortZA").addEventListener("click", ()=>{ currentSort="ZA"; apply(); });
-
   $("reset").addEventListener("click", ()=>{
-    citySel.value = "";
-    fillDistricts();
-    districtSel.value = "";
-    qInp.value = "";
-    currentSort="AZ";
-    apply();
+    citySel.value=""; fillDistricts(); districtSel.value=""; qInp.value=""; currentSort="AZ"; apply();
   });
 
-  fillCities();
-  fillDistricts();
-  apply();
+  fillCities(); fillDistricts(); apply();
+</script>
+
+<script>
+  function mxPost(){ parent.postMessage({mxHeight:document.documentElement.scrollHeight},'*'); }
+  window.addEventListener('load',mxPost);
+  new ResizeObserver(mxPost).observe(document.body);
 </script>
 </body>
 </html>
