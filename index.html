@@ -7,6 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+
   <style>
     :root{
       --bg:#ffffff; --card:#ffffff; --text:#0a2540; --muted:#5b6b7a;
@@ -61,6 +64,36 @@
     .btn:hover{ filter:brightness(.97); }
     .btn:active{ transform:translateY(1px); }
     .grow{ flex:1; }
+
+    .mapbox{ position:relative; border-bottom:1px solid var(--line); }
+    #map{ height:460px; width:100%; background:#eef1f5; z-index:0; }
+    @media (max-width:520px){ #map{ height:340px; } }
+    .map-hint{
+      position:absolute; left:50%; bottom:14px; transform:translateX(-50%); z-index:500;
+      background:rgba(10,37,64,.78); color:#fff; font-size:12px; font-weight:700;
+      padding:6px 12px; border-radius:999px; pointer-events:none; transition:opacity .2s;
+    }
+    .map-hint.hide{ opacity:0; }
+    .mx-cluster{
+      background:#5009D9; color:#fff; border:3px solid #fff; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      font-family:"Nunito"; font-weight:900; font-size:15px;
+      box-shadow:0 4px 14px rgba(10,37,64,.35);
+    }
+    .mx-pin{
+      width:18px; height:18px; background:#5009D9; border:3px solid #fff; border-radius:50%;
+      box-shadow:0 3px 10px rgba(10,37,64,.4);
+    }
+    .leaflet-popup-content-wrapper{ border-radius:14px; font-family:"Nunito"; }
+    .leaflet-popup-content{ margin:14px 16px; }
+    .pp-name{ font-size:15px; font-weight:800; color:#0a2540; margin:0 0 4px; }
+    .pp-meta{ font-size:12.5px; color:#5b6b7a; margin:0 0 10px; line-height:1.45; }
+    .pp-actions{ display:flex; gap:6px; flex-wrap:wrap; }
+    .pp-actions a{
+      text-decoration:none; font-weight:800; font-size:12.5px; padding:7px 12px; border-radius:9px;
+      background:#efeafb; color:#5009D9 !important; border:1px solid #e0d9f7;
+    }
+    .pp-actions a.ok{ background:#e9f7ee; color:#1b8a4e !important; border-color:rgba(27,138,78,.2); }
 
     .list{
       flex:1 1 auto; padding:18px;
@@ -123,10 +156,18 @@
         <button class="btn" id="reset">Filtreleri Sıfırla</button>
       </div>
 
+      <div class="mapbox">
+        <div id="map"></div>
+        <div class="map-hint" id="mapHint">Yakınlaştırmak için haritaya tıklayın</div>
+      </div>
+
       <div id="list" class="list"></div>
       <div id="empty" class="empty">Kriterlere uygun sonuç bulunamadı.</div>
     </div>
   </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 
 <script>
   const DEALERS = [
@@ -237,6 +278,49 @@
     return (str||"").toString().replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
   }
 
+    // ---- HARİTA (OpenStreetMap, API key gerektirmez) ----
+    const hasLL = (d) => typeof d.lat === "number" && typeof d.lng === "number";
+    const map = L.map("map", { scrollWheelZoom:false, zoomControl:true }).setView([39.0, 35.0], 6);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19, subdomains: "abc",
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    // iframe içinde sayfa kaydırmasını çalmasın: tıklayınca tekerlek zoom açılır
+    const hint = $("mapHint");
+    map.on("click focus", ()=>{ map.scrollWheelZoom.enable(); hint.classList.add("hide"); });
+    map.getContainer().addEventListener("mouseleave", ()=>{ map.scrollWheelZoom.disable(); hint.classList.remove("hide"); });
+
+    const cluster = L.markerClusterGroup({
+      showCoverageOnHover:false, maxClusterRadius:50, spiderfyOnMaxZoom:true,
+      iconCreateFunction: (c)=>{
+        const n = c.getChildCount(), size = n < 10 ? 40 : n < 50 ? 48 : 56;
+        return L.divIcon({ html:`<div class="mx-cluster" style="width:${size}px;height:${size}px">${n}</div>`,
+          className:"", iconSize:[size,size] });
+      }
+    });
+    map.addLayer(cluster);
+    const pinIcon = L.divIcon({ html:'<div class="mx-pin"></div>', className:"", iconSize:[18,18], iconAnchor:[9,9], popupAnchor:[0,-10] });
+
+    function popupHtml(d){
+      const tel = phoneLink(d.phone);
+      return `<p class="pp-name">${escapeHtml(d.name)}</p>
+        <p class="pp-meta"><b>${escapeHtml(d.city)}</b> · ${escapeHtml(d.district)}<br/>${escapeHtml(d.address)}</p>
+        <div class="pp-actions">
+          ${tel ? `<a class="ok" href="${tel}">Ara</a>` : ``}
+          <a href="${mapsLink(d)}" target="_blank" rel="noopener">Yol Tarifi</a>
+        </div>`;
+    }
+
+    function renderMap(items){
+      cluster.clearLayers();
+      const pts = items.filter(hasLL);
+      pts.forEach(d=> cluster.addLayer(L.marker([d.lat, d.lng], { icon:pinIcon, title:d.name }).bindPopup(popupHtml(d))));
+      if (pts.length === 1) map.setView([pts[0].lat, pts[0].lng], 15);
+      else if (pts.length > 1) map.fitBounds(L.latLngBounds(pts.map(d=>[d.lat,d.lng])), { padding:[40,40], maxZoom:14 });
+      else map.setView([39.0, 35.0], 6);
+    }
+
   let currentSort = "AZ";
   function apply(){
     const city = citySel.value, district = districtSel.value, q = norm(qInp.value);
@@ -249,6 +333,7 @@
     });
     out.sort((a,b)=>{ const cmp=a.name.localeCompare(b.name,"tr"); return currentSort==="AZ"?cmp:-cmp; });
     render(out);
+    renderMap(out);
   }
   function render(items){
     countEl.textContent = items.length;
